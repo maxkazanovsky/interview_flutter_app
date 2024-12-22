@@ -25,3 +25,10 @@ To generate icons:
 dart run flutter_launcher_icons:main
 ```
 
+## New Features
+
+I have added smooth animations throughout the entire application to ensure the best user experience. 
+Additionally, I implemented a parallax effect on the background image, which moves with each new page transition to create a visually appealing effect.
+I also added basic validation to the app to ensure that users enter data correctly.
+
+
