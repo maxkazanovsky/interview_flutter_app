@@ -1,0 +1,128 @@
+name: test_birthday_app
+description: "A test flutter project."
+
+publish_to: 'none'
+
+version: 1.0.0
+
+environment:
+  sdk: ">=3.6.0 <4.0.0"
+  flutter: ">=3.27.1 <4.0.0"
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # Localization
+  intl: ^0.19.0
+
+  # Google ads
+  google_mobile_ads: ^5.2.0
+
+  # Navigation
+  go_router: ^14.6.2
+
+  # State management
+  flutter_bloc: ^8.1.6
+
+  # Dependency injection
+  get_it: ^8.0.3
+  injectable: ^2.5.0
+
+  # Storage
+  shared_preferences: ^2.3.4
+
+  # Utils and other
+  cupertino_icons: ^1.0.8
+  freezed_annotation: ^2.4.4
+  camera: ^0.11.0
+  in_app_review: ^2.0.10
+  percent_indicator: ^4.2.4
+  flutter_svg: ^2.0.16
+  json_annotation: ^4.9.0
+  flutter_gen: ^5.8.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.2
+  freezed: ^2.5.7
+  flutter_gen_runner: ^5.8.0
+  injectable_generator: ^2.6.2
+  build_runner: ^2.4.14
+
+flutter_gen:
+    output: lib/generated/
+    integrations:
+      flutter_svg: true
+    fonts:
+      enabled: true
+      outputs:
+        class_name: AppFonts
+    colors:
+      enabled: true
+      outputs:
+        class_name: AppColors
+      inputs:
+        - assets/colors/colors.xml
+
+
+flutter:
+  generate: true
+  uses-material-design: true
+
+  assets:
+    - assets/fonts/
+    - assets/colors/
+    - assets/images/
+    - assets/svg/
+    - assets/icons/
+    - assets/json/
+    - assets/logo/
+
+
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/Lato-Regular.ttf
+        - asset: assets/fonts/Lato-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Lato-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Lato-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Lato-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Lato-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Lato-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Lato-BlackItalic.ttf
+          weight: 900
+          style: italic
+        - asset: assets/fonts/Lato-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Lato-ThinItalic.ttf
+          weight: 100
+          style: italic
+
+flutter_launcher_icons:
+  android: "ic_launcher"
+  image_path: "assets/logo/logo.png"
+  adaptive_icon_foreground: "assets/logo/logo.png"
+  adaptive_icon_background: "#FFFFFF"
+  ios: true
+
+
+
+flutter_intl:
+  enabled: true
+  class_name: AppLocalizations
+  main_locale: en

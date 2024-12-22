@@ -1,0 +1,46 @@
+{
+  "next": "Continue",
+
+  "welcome_headline": "Are you ready for\nyour test?",
+  "welcome_subtitle": "Start now by creating your profile and connect!",
+
+  "birthday_headline": "When’s your\nbirthday?",
+  "birthday_day": "Day",
+  "birthday_month": "Month",
+  "birthday_year": "Year",
+
+  "nickname_headline": "Choose your\nnickname?",
+
+  "gender_headline": "Which gender do\nyou identify as?",
+  "gender_subtitle": "Your gender helps us find the right\nmatches for you.",
+  "gender_male": "Male",
+  "gender_female": "Female",
+  "gender_other": "Other",
+
+  "photo_headline": "Add a nice photo\nof yourself",
+  "photo_button_text": "Take your first photo",
+  "photo_requirements_headline": "Make sure that your image",
+  "photo_requirement_face": "Shows your face clearly",
+  "photo_requirement_yourself": "Yourself only, no group pic",
+  "photo_requirement_fake": "No fake pic, object or someone else",
+
+  "settings": "Settings",
+
+  "account": "My Account",
+
+  "unlock_app": "Unlock App",
+
+  "rate_us": "Rate Us",
+
+  "username": "Username",
+
+  "birthday": "Birthday",
+
+  "validation_required": "This field is required",
+
+  "validation_date": "Please enter a valid date",
+
+  "unlock_app_title": "Do you really want to unlock the app?",
+  "unlock_app_title_positive": "Yes",
+  "unlock_app_title_negative": "No"
+}
