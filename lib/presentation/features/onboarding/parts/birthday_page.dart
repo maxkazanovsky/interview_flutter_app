@@ -17,51 +17,57 @@ class BirthdayPageState extends State<BirthdayPage> with SingleTickerProviderSta
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(duration: const Duration(milliseconds: 800), vsync: this);
+    controller = AnimationController(duration: const Duration(milliseconds: 1200), vsync: this);
 
-    titleOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.0,
-          0.4,
-          curve: Curves.linear,
-        ),
-      ),
+    titleOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.0,
+      finish: 0.4,
     );
-    titleOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.0,
-        0.4,
-        curve: Curves.linear,
-      ),
-    ));
+    titleOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.0,
+      finish: 0.4,
+    );
 
-    fieldsOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.3,
-          0.6,
-          curve: Curves.linear,
-        ),
-      ),
+    // Create fields animations
+    fieldsOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.3,
+      finish: 0.6,
     );
-    fieldsOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.3,
-        0.6,
-        curve: Curves.linear,
-      ),
-    ));
+    fieldsOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.3,
+      finish: 0.6,
+    );
 
     controller.forward();
   }
 
+  Animation<T> createAnimation<T>(
+    AnimationController controller, {
+    required T begin,
+    required T end,
+    required double start,
+    required double finish,
+    Curve curve = Curves.easeInOut,
+  }) {
+    return Tween<T>(begin: begin, end: end).animate(
+      CurvedAnimation(parent: controller, curve: Interval(start, finish, curve: curve)),
+    );
+  }
+
   @override
-  void dispose() async {
+  void dispose() {
     if (controller.isAnimating) {
       controller.stop();
     }
@@ -72,6 +78,8 @@ class BirthdayPageState extends State<BirthdayPage> with SingleTickerProviderSta
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OnboardingCubit, OnboardingState>(
+      buildWhen: (oldSt, newSt) =>
+          newSt is Birthday && oldSt.maybeMap(orElse: () => false, birthday: (st) => st.error != newSt.error),
       builder: (BuildContext context, OnboardingState state) {
         return state.maybeMap(
             orElse: () => SizedBox(),
@@ -129,68 +137,31 @@ class BirthdayPageState extends State<BirthdayPage> with SingleTickerProviderSta
                             ],
                             Row(
                               children: [
-                                Column(
-                                  children: [
-                                    BlurredInput(
-                                      width: 74,
-                                      keyboardType: TextInputType.number,
-                                      inputAction: TextInputAction.next,
-                                      initialValue: state.day?.toString() ?? '',
-                                      onChanged: (value) =>
-                                          context.read<OnboardingCubit>().setBirthdayDay(value, context),
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    Text(
-                                      context.l10n.birthday_day,
-                                      style: context.textStyles.bodyMedium,
-                                    )
-                                  ],
+                                buildInputField(
+                                  width: 74,
+                                  autoFocus: true,
+                                  initialValue: state.day?.toString() ?? '',
+                                  onChanged: (value) => context.read<OnboardingCubit>().setBirthdayDay(value, context),
+                                  label: context.l10n.birthday_day,
                                 ),
-                                const SizedBox(
+                                SizedBox(
                                   width: 12,
                                 ),
-                                Column(
-                                  children: [
-                                    BlurredInput(
-                                      width: 74,
-                                      keyboardType: TextInputType.number,
-                                      inputAction: TextInputAction.next,
-                                      initialValue: state.month?.toString() ?? '',
-                                      onChanged: (value) =>
-                                          context.read<OnboardingCubit>().setBirthdayMonth(value, context),
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    Text(
-                                      context.l10n.birthday_month,
-                                      style: context.textStyles.bodyMedium,
-                                    )
-                                  ],
+                                buildInputField(
+                                  width: 74,
+                                  initialValue: state.month?.toString() ?? '',
+                                  onChanged: (value) =>
+                                      context.read<OnboardingCubit>().setBirthdayMonth(value, context),
+                                  label: context.l10n.birthday_month,
                                 ),
-                                const SizedBox(
+                                SizedBox(
                                   width: 12,
                                 ),
-                                Column(
-                                  children: [
-                                    BlurredInput(
-                                      width: 103,
-                                      keyboardType: TextInputType.number,
-                                      inputAction: TextInputAction.done,
-                                      initialValue: state.year?.toString() ?? '',
-                                      onChanged: (value) =>
-                                          context.read<OnboardingCubit>().setBirthdayYear(value, context),
-                                    ),
-                                    const SizedBox(
-                                      height: 8,
-                                    ),
-                                    Text(
-                                      context.l10n.birthday_year,
-                                      style: context.textStyles.bodyMedium,
-                                    )
-                                  ],
+                                buildInputField(
+                                  width: 103,
+                                  initialValue: state.year?.toString() ?? '',
+                                  onChanged: (value) => context.read<OnboardingCubit>().setBirthdayYear(value, context),
+                                  label: context.l10n.birthday_year,
                                 ),
                               ],
                             ),
@@ -201,6 +172,29 @@ class BirthdayPageState extends State<BirthdayPage> with SingleTickerProviderSta
                   ),
                 )));
       },
+    );
+  }
+
+  Widget buildInputField({
+    required double width,
+    required String initialValue,
+    required void Function(String) onChanged,
+    required String label,
+    bool autoFocus = false,
+  }) {
+    return Column(
+      children: [
+        BlurredInput(
+          width: width,
+          keyboardType: TextInputType.number,
+          inputAction: TextInputAction.next,
+          initialValue: initialValue,
+          autoFocus: autoFocus,
+          onChanged: onChanged,
+        ),
+        const SizedBox(height: 8),
+        Text(label, style: context.textStyles.bodyMedium),
+      ],
     );
   }
 }

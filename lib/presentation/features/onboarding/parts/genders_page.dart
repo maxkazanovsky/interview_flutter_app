@@ -23,108 +23,106 @@ class _GendersPageState extends State<GendersPage> with SingleTickerProviderStat
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(duration: const Duration(milliseconds: 800), vsync: this);
+    controller = AnimationController(duration: const Duration(milliseconds: 1200), vsync: this);
 
-    titleOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.0,
-          0.2,
-          curve: Curves.linear,
-        ),
-      ),
+    titleOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.0,
+      finish: 0.2,
     );
-    titleOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.0,
-        0.2,
-        curve: Curves.linear,
-      ),
-    ));
 
-    subtitleOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.1,
-          0.3,
-          curve: Curves.linear,
-        ),
-      ),
+    titleOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.0,
+      finish: 0.2,
     );
-    subtitleOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.1,
-        0.3,
-        curve: Curves.linear,
-      ),
-    ));
 
-    maleButtonOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.4,
-          0.6,
-          curve: Curves.linear,
-        ),
-      ),
+    subtitleOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.1,
+      finish: 0.3,
     );
-    maleButtonOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.4,
-        0.6,
-        curve: Curves.linear,
-      ),
-    ));
 
-    femaleButtonOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.5,
-          0.7,
-          curve: Curves.linear,
-        ),
-      ),
+    subtitleOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.1,
+      finish: 0.3,
     );
-    femaleButtonOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.5,
-        0.7,
-        curve: Curves.linear,
-      ),
-    ));
 
-    otherButtonOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.6,
-          0.8,
-          curve: Curves.linear,
-        ),
-      ),
+    maleButtonOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.4,
+      finish: 0.6,
     );
-    otherButtonOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.6,
-        0.8,
-        curve: Curves.linear,
-      ),
-    ));
+
+    maleButtonOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.4,
+      finish: 0.6,
+    );
+
+    femaleButtonOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.5,
+      finish: 0.7,
+    );
+
+    femaleButtonOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.5,
+      finish: 0.7,
+    );
+
+    otherButtonOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.6,
+      finish: 0.8,
+    );
+
+    otherButtonOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.6,
+      finish: 0.8,
+    );
 
     controller.forward();
   }
 
+  Animation<T> createAnimation<T>(
+    AnimationController controller, {
+    required T begin,
+    required T end,
+    required double start,
+    required double finish,
+    Curve curve = Curves.easeInOut,
+  }) {
+    return Tween<T>(begin: begin, end: end).animate(
+      CurvedAnimation(parent: controller, curve: Interval(start, finish, curve: curve)),
+    );
+  }
+
   @override
-  void dispose() async {
+  void dispose() {
     if (controller.isAnimating) {
       controller.stop();
     }

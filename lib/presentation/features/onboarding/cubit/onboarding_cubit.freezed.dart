@@ -30,8 +30,12 @@ mixin _$OnboardingState {
             HumanGender? gander, bool isPreviousButtonAvailable)
         gender,
     required TResult Function(bool isPreviousButtonAvailable) photo,
-    required TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)
+    required TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)
         camera,
     required TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)
@@ -50,8 +54,12 @@ mixin _$OnboardingState {
     TResult? Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult? Function(bool isPreviousButtonAvailable)? photo,
-    TResult? Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult? Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult? Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?
@@ -70,8 +78,12 @@ mixin _$OnboardingState {
     TResult Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult Function(bool isPreviousButtonAvailable)? photo,
-    TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?
@@ -240,8 +252,12 @@ class _$LoadingImpl implements _Loading {
             HumanGender? gander, bool isPreviousButtonAvailable)
         gender,
     required TResult Function(bool isPreviousButtonAvailable) photo,
-    required TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)
+    required TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)
         camera,
     required TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)
@@ -263,8 +279,12 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult? Function(bool isPreviousButtonAvailable)? photo,
-    TResult? Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult? Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult? Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?
@@ -286,8 +306,12 @@ class _$LoadingImpl implements _Loading {
     TResult Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult Function(bool isPreviousButtonAvailable)? photo,
-    TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?
@@ -489,8 +513,12 @@ class _$BirthdayImpl implements Birthday {
             HumanGender? gander, bool isPreviousButtonAvailable)
         gender,
     required TResult Function(bool isPreviousButtonAvailable) photo,
-    required TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)
+    required TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)
         camera,
     required TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)
@@ -512,8 +540,12 @@ class _$BirthdayImpl implements Birthday {
     TResult? Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult? Function(bool isPreviousButtonAvailable)? photo,
-    TResult? Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult? Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult? Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?
@@ -535,8 +567,12 @@ class _$BirthdayImpl implements Birthday {
     TResult Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult Function(bool isPreviousButtonAvailable)? photo,
-    TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?
@@ -722,8 +758,12 @@ class _$NicknameImpl implements Nickname {
             HumanGender? gander, bool isPreviousButtonAvailable)
         gender,
     required TResult Function(bool isPreviousButtonAvailable) photo,
-    required TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)
+    required TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)
         camera,
     required TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)
@@ -745,8 +785,12 @@ class _$NicknameImpl implements Nickname {
     TResult? Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult? Function(bool isPreviousButtonAvailable)? photo,
-    TResult? Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult? Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult? Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?
@@ -768,8 +812,12 @@ class _$NicknameImpl implements Nickname {
     TResult Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult Function(bool isPreviousButtonAvailable)? photo,
-    TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?
@@ -941,8 +989,12 @@ class _$GenderImpl implements Gender {
             HumanGender? gander, bool isPreviousButtonAvailable)
         gender,
     required TResult Function(bool isPreviousButtonAvailable) photo,
-    required TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)
+    required TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)
         camera,
     required TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)
@@ -964,8 +1016,12 @@ class _$GenderImpl implements Gender {
     TResult? Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult? Function(bool isPreviousButtonAvailable)? photo,
-    TResult? Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult? Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult? Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?
@@ -987,8 +1043,12 @@ class _$GenderImpl implements Gender {
     TResult Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult Function(bool isPreviousButtonAvailable)? photo,
-    TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?
@@ -1149,8 +1209,12 @@ class _$PhotoImpl implements Photo {
             HumanGender? gander, bool isPreviousButtonAvailable)
         gender,
     required TResult Function(bool isPreviousButtonAvailable) photo,
-    required TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)
+    required TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)
         camera,
     required TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)
@@ -1172,8 +1236,12 @@ class _$PhotoImpl implements Photo {
     TResult? Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult? Function(bool isPreviousButtonAvailable)? photo,
-    TResult? Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult? Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult? Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?
@@ -1195,8 +1263,12 @@ class _$PhotoImpl implements Photo {
     TResult Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult Function(bool isPreviousButtonAvailable)? photo,
-    TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?
@@ -1279,8 +1351,11 @@ abstract class _$$CameraImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {camera.CameraController cameraController,
-      bool isPreviousButtonAvailable});
+      {camera.CameraController? cameraController,
+      bool isPreviousButtonAvailable,
+      bool isFrontCameraActive,
+      bool isCameraLoading,
+      bool hasError});
 }
 
 /// @nodoc
@@ -1296,17 +1371,32 @@ class __$$CameraImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? cameraController = null,
+    Object? cameraController = freezed,
     Object? isPreviousButtonAvailable = null,
+    Object? isFrontCameraActive = null,
+    Object? isCameraLoading = null,
+    Object? hasError = null,
   }) {
     return _then(_$CameraImpl(
-      cameraController: null == cameraController
+      cameraController: freezed == cameraController
           ? _value.cameraController
           : cameraController // ignore: cast_nullable_to_non_nullable
-              as camera.CameraController,
+              as camera.CameraController?,
       isPreviousButtonAvailable: null == isPreviousButtonAvailable
           ? _value.isPreviousButtonAvailable
           : isPreviousButtonAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFrontCameraActive: null == isFrontCameraActive
+          ? _value.isFrontCameraActive
+          : isFrontCameraActive // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCameraLoading: null == isCameraLoading
+          ? _value.isCameraLoading
+          : isCameraLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      hasError: null == hasError
+          ? _value.hasError
+          : hasError // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -1317,16 +1407,28 @@ class __$$CameraImplCopyWithImpl<$Res>
 class _$CameraImpl implements Camera {
   const _$CameraImpl(
       {required this.cameraController,
-      required this.isPreviousButtonAvailable});
+      required this.isPreviousButtonAvailable,
+      this.isFrontCameraActive = true,
+      this.isCameraLoading = true,
+      this.hasError = false});
 
   @override
-  final camera.CameraController cameraController;
+  final camera.CameraController? cameraController;
   @override
   final bool isPreviousButtonAvailable;
+  @override
+  @JsonKey()
+  final bool isFrontCameraActive;
+  @override
+  @JsonKey()
+  final bool isCameraLoading;
+  @override
+  @JsonKey()
+  final bool hasError;
 
   @override
   String toString() {
-    return 'OnboardingState.camera(cameraController: $cameraController, isPreviousButtonAvailable: $isPreviousButtonAvailable)';
+    return 'OnboardingState.camera(cameraController: $cameraController, isPreviousButtonAvailable: $isPreviousButtonAvailable, isFrontCameraActive: $isFrontCameraActive, isCameraLoading: $isCameraLoading, hasError: $hasError)';
   }
 
   @override
@@ -1338,12 +1440,23 @@ class _$CameraImpl implements Camera {
                 other.cameraController == cameraController) &&
             (identical(other.isPreviousButtonAvailable,
                     isPreviousButtonAvailable) ||
-                other.isPreviousButtonAvailable == isPreviousButtonAvailable));
+                other.isPreviousButtonAvailable == isPreviousButtonAvailable) &&
+            (identical(other.isFrontCameraActive, isFrontCameraActive) ||
+                other.isFrontCameraActive == isFrontCameraActive) &&
+            (identical(other.isCameraLoading, isCameraLoading) ||
+                other.isCameraLoading == isCameraLoading) &&
+            (identical(other.hasError, hasError) ||
+                other.hasError == hasError));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, cameraController, isPreviousButtonAvailable);
+  int get hashCode => Object.hash(
+      runtimeType,
+      cameraController,
+      isPreviousButtonAvailable,
+      isFrontCameraActive,
+      isCameraLoading,
+      hasError);
 
   /// Create a copy of OnboardingState
   /// with the given fields replaced by the non-null parameter values.
@@ -1367,14 +1480,19 @@ class _$CameraImpl implements Camera {
             HumanGender? gander, bool isPreviousButtonAvailable)
         gender,
     required TResult Function(bool isPreviousButtonAvailable) photo,
-    required TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)
+    required TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)
         camera,
     required TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)
         cameraPreview,
   }) {
-    return camera(cameraController, isPreviousButtonAvailable);
+    return camera(cameraController, isPreviousButtonAvailable,
+        isFrontCameraActive, isCameraLoading, hasError);
   }
 
   @override
@@ -1390,14 +1508,19 @@ class _$CameraImpl implements Camera {
     TResult? Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult? Function(bool isPreviousButtonAvailable)? photo,
-    TResult? Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult? Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult? Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?
         cameraPreview,
   }) {
-    return camera?.call(cameraController, isPreviousButtonAvailable);
+    return camera?.call(cameraController, isPreviousButtonAvailable,
+        isFrontCameraActive, isCameraLoading, hasError);
   }
 
   @override
@@ -1413,8 +1536,12 @@ class _$CameraImpl implements Camera {
     TResult Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult Function(bool isPreviousButtonAvailable)? photo,
-    TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?
@@ -1422,7 +1549,8 @@ class _$CameraImpl implements Camera {
     required TResult orElse(),
   }) {
     if (camera != null) {
-      return camera(cameraController, isPreviousButtonAvailable);
+      return camera(cameraController, isPreviousButtonAvailable,
+          isFrontCameraActive, isCameraLoading, hasError);
     }
     return orElse();
   }
@@ -1476,12 +1604,18 @@ class _$CameraImpl implements Camera {
 
 abstract class Camera implements OnboardingState {
   const factory Camera(
-      {required final camera.CameraController cameraController,
-      required final bool isPreviousButtonAvailable}) = _$CameraImpl;
+      {required final camera.CameraController? cameraController,
+      required final bool isPreviousButtonAvailable,
+      final bool isFrontCameraActive,
+      final bool isCameraLoading,
+      final bool hasError}) = _$CameraImpl;
 
-  camera.CameraController get cameraController;
+  camera.CameraController? get cameraController;
   @override
   bool get isPreviousButtonAvailable;
+  bool get isFrontCameraActive;
+  bool get isCameraLoading;
+  bool get hasError;
 
   /// Create a copy of OnboardingState
   /// with the given fields replaced by the non-null parameter values.
@@ -1610,8 +1744,12 @@ class _$CameraPreviewImpl implements CameraPreview {
             HumanGender? gander, bool isPreviousButtonAvailable)
         gender,
     required TResult Function(bool isPreviousButtonAvailable) photo,
-    required TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)
+    required TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)
         camera,
     required TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)
@@ -1633,8 +1771,12 @@ class _$CameraPreviewImpl implements CameraPreview {
     TResult? Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult? Function(bool isPreviousButtonAvailable)? photo,
-    TResult? Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult? Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult? Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?
@@ -1657,8 +1799,12 @@ class _$CameraPreviewImpl implements CameraPreview {
     TResult Function(HumanGender? gander, bool isPreviousButtonAvailable)?
         gender,
     TResult Function(bool isPreviousButtonAvailable)? photo,
-    TResult Function(camera.CameraController cameraController,
-            bool isPreviousButtonAvailable)?
+    TResult Function(
+            camera.CameraController? cameraController,
+            bool isPreviousButtonAvailable,
+            bool isFrontCameraActive,
+            bool isCameraLoading,
+            bool hasError)?
         camera,
     TResult Function(camera.XFile image, String adUnitId,
             bool isPreviousButtonAvailable, bool showAd)?

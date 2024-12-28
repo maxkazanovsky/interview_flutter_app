@@ -20,6 +20,10 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(maxAge) => "Age must not exceed ${maxAge} years.";
+
+  static String m1(minAge) => "You must be at least ${minAge} years old.";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "account": MessageLookupByLibrary.simpleMessage("My Account"),
@@ -29,6 +33,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("When’s your\nbirthday?"),
         "birthday_month": MessageLookupByLibrary.simpleMessage("Month"),
         "birthday_year": MessageLookupByLibrary.simpleMessage("Year"),
+        "camera_error": MessageLookupByLibrary.simpleMessage("Camera error"),
+        "error_user_data":
+            MessageLookupByLibrary.simpleMessage("Oops! Something went wrong!"),
+        "gender": MessageLookupByLibrary.simpleMessage("Gender"),
         "gender_female": MessageLookupByLibrary.simpleMessage("Female"),
         "gender_headline": MessageLookupByLibrary.simpleMessage(
             "Which gender do\nyou identify as?"),
@@ -62,6 +70,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "username": MessageLookupByLibrary.simpleMessage("Username"),
         "validation_date":
             MessageLookupByLibrary.simpleMessage("Please enter a valid date"),
+        "validation_future_date": MessageLookupByLibrary.simpleMessage(
+            "Date cannot be in the future."),
+        "validation_invalid_username": MessageLookupByLibrary.simpleMessage(
+            "Invalid characters in username."),
+        "validation_maximum_age": m0,
+        "validation_minimum_age": m1,
+        "validation_nickname_max_length": MessageLookupByLibrary.simpleMessage(
+            "Your nickname is too long, maximum is 10 symbols."),
+        "validation_nickname_min_length": MessageLookupByLibrary.simpleMessage(
+            "Your nickname is too short, please enter at least 5 symbols."),
         "validation_required":
             MessageLookupByLibrary.simpleMessage("This field is required"),
         "welcome_headline": MessageLookupByLibrary.simpleMessage(

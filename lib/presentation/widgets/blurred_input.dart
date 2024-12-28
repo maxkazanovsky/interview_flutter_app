@@ -10,6 +10,7 @@ class BlurredInput extends StatefulWidget {
   final TextAlign? textAlign;
   final String initialValue;
   final String? errorText;
+  final bool autoFocus;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
 
@@ -22,6 +23,7 @@ class BlurredInput extends StatefulWidget {
     this.errorText,
     this.keyboardType = TextInputType.text,
     this.initialValue = '',
+    this.autoFocus = false,
     this.onChanged,
     this.onSubmitted,
   });
@@ -58,6 +60,7 @@ class _BlurredInputState extends State<BlurredInput> {
           onSubmitted: widget.onSubmitted,
           textAlign: widget.textAlign ?? TextAlign.center,
           autocorrect: false,
+          autofocus: widget.autoFocus,
           enableSuggestions: false,
           style: widget.textStyle ?? context.textStyles.titleLarge,
           decoration: InputDecoration(

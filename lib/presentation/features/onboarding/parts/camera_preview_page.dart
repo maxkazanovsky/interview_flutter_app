@@ -58,7 +58,7 @@ class _CameraPreviewPageState extends State<CameraPreviewPage> {
           SizedBox.expand(
             child: Image.file(
               File(state.image.path),
-              fit: BoxFit.fitHeight,
+              fit: BoxFit.cover,
             ),
           ),
           if (state.showAd)

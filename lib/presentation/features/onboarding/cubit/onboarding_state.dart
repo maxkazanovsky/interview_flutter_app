@@ -25,8 +25,11 @@ class OnboardingState with _$OnboardingState {
     @Default(true) bool isPreviousButtonAvailable,
   }) = Photo;
   const factory OnboardingState.camera({
-    required camera.CameraController cameraController,
+    required camera.CameraController? cameraController,
     required bool isPreviousButtonAvailable,
+    @Default(true) bool isFrontCameraActive,
+    @Default(true) bool isCameraLoading,
+    @Default(false) bool hasError,
   }) = Camera;
   const factory OnboardingState.cameraPreview({
     required camera.XFile image,

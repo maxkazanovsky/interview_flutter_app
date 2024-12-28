@@ -29,7 +29,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
       duration: const Duration(milliseconds: 1200),
     );
 
-    // Headline Animations
     headlineOffsetAnimation = Tween<Offset>(
       begin: const Offset(0, 1),
       end: Offset.zero,
@@ -49,7 +48,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
       ),
     );
 
-    // Subtitle Animations
     subtitleOffsetAnimation = Tween<Offset>(
       begin: const Offset(0, 1),
       end: Offset.zero,
@@ -69,7 +67,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
       ),
     );
 
-    // Button Animations
     buttonOffsetAnimation = Tween<Offset>(
       begin: const Offset(0, 1),
       end: Offset.zero,
@@ -91,7 +88,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
 
     GoRouter.of(context).routerDelegate.addListener(_onRouteChange);
 
-    controller.forward(); // Start the animations
+    controller.forward();
   }
 
   void _onRouteChange() {

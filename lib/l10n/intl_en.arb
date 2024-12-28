@@ -36,11 +36,24 @@
 
   "birthday": "Birthday",
 
+  "gender": "Gender",
+
   "validation_required": "This field is required",
 
   "validation_date": "Please enter a valid date",
+  "validation_future_date": "Date cannot be in the future.",
+  "validation_minimum_age": "You must be at least {minAge} years old.",
+  "validation_maximum_age": "Age must not exceed {maxAge} years.",
+
+  "validation_nickname_min_length": "Your nickname is too short, please enter at least 5 symbols.",
+  "validation_nickname_max_length": "Your nickname is too long, maximum is 10 symbols.",
+  "validation_invalid_username": "Invalid characters in username.",
 
   "unlock_app_title": "Do you really want to unlock the app?",
   "unlock_app_title_positive": "Yes",
-  "unlock_app_title_negative": "No"
+  "unlock_app_title_negative": "No",
+
+
+  "camera_error": "Camera error",
+  "error_user_data": "Oops! Something went wrong!"
 }

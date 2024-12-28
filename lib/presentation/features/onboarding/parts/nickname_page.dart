@@ -16,48 +16,55 @@ class _NicknamePageState extends State<NicknamePage> with SingleTickerProviderSt
 
   @override
   void initState() {
-    controller = AnimationController(duration: const Duration(milliseconds: 800), vsync: this);
+    controller = AnimationController(duration: const Duration(milliseconds: 1200), vsync: this);
 
-    titleOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.0,
-          0.4,
-          curve: Curves.linear,
-        ),
-      ),
+    titleOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.0,
+      finish: 0.4,
     );
-    titleOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.0,
-        0.4,
-        curve: Curves.linear,
-      ),
-    ));
 
-    fieldOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.3,
-          0.6,
-          curve: Curves.linear,
-        ),
-      ),
+    titleOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.0,
+      finish: 0.4,
     );
-    fieldOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.3,
-        0.6,
-        curve: Curves.linear,
-      ),
-    ));
+
+    fieldOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.3,
+      finish: 0.6,
+    );
+
+    fieldOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.3,
+      finish: 0.6,
+    );
 
     controller.forward();
     super.initState();
+  }
+
+  Animation<T> createAnimation<T>(
+    AnimationController controller, {
+    required T begin,
+    required T end,
+    required double start,
+    required double finish,
+    Curve curve = Curves.easeInOut,
+  }) {
+    return Tween<T>(begin: begin, end: end).animate(
+      CurvedAnimation(parent: controller, curve: Interval(start, finish, curve: curve)),
+    );
   }
 
   @override
@@ -72,6 +79,8 @@ class _NicknamePageState extends State<NicknamePage> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OnboardingCubit, OnboardingState>(
+      buildWhen: (oldSt, newSt) =>
+          newSt is Nickname && oldSt.maybeMap(orElse: () => false, nickname: (st) => st.error != newSt.error),
       builder: (context, state) {
         return state.maybeMap(
             orElse: () => SizedBox(),
@@ -128,6 +137,7 @@ class _NicknamePageState extends State<NicknamePage> with SingleTickerProviderSt
                             ],
                             BlurredInput(
                               width: double.infinity,
+                              autoFocus: true,
                               textAlign: TextAlign.left,
                               initialValue: state.nickname ?? '',
                               onChanged: (value) => context.read<OnboardingCubit>().setNickname(value, context),

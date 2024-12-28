@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:test_birthday_app/core/utils/build_context_extension.dart';
 import 'package:test_birthday_app/generated/colors.gen.dart';
 import 'package:test_birthday_app/presentation/features/settings/cubit/settings_cubit.dart';
+import 'package:test_birthday_app/presentation/widgets/error_container.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -14,6 +15,12 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<SettingsCubit>().init();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,9 +69,22 @@ class _SettingsState extends State<Settings> {
                             title: context.l10n.birthday,
                             value: state.userData.birthday.presentationString(),
                           ),
+                          _ListTile(
+                            onClick: null,
+                            title: context.l10n.gender,
+                            value: state.userData.gender.name,
+                          ),
                         ])
                       ],
-                    ));
+                    ),
+                error: (_) {
+                  return ErrorContainer(
+                    onRetry: () {
+                      context.read<SettingsCubit>().init();
+                    },
+                    errorText: context.l10n.error_user_data,
+                  );
+                });
           },
         ),
       ),

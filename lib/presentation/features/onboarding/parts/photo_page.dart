@@ -28,142 +28,132 @@ class _PhotoPageState extends State<PhotoPage> with SingleTickerProviderStateMix
   void initState() {
     controller = AnimationController(duration: const Duration(milliseconds: 1200), vsync: this);
 
-    titleOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.0,
-          0.1,
-          curve: Curves.linear,
-        ),
-      ),
+    titleOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.0,
+      finish: 0.1,
     );
-    titleOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.0,
-        0.1,
-        curve: Curves.linear,
-      ),
-    ));
+    titleOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.0,
+      finish: 0.1,
+    );
 
-    buttonOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.1,
-          0.2,
-          curve: Curves.linear,
-        ),
-      ),
+    buttonOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.1,
+      finish: 0.2,
     );
-    buttonOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.1,
-        0.2,
-        curve: Curves.linear,
-      ),
-    ));
 
-    requirementsOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.2,
-          0.4,
-          curve: Curves.linear,
-        ),
-      ),
+    buttonOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.1,
+      finish: 0.2,
     );
-    requirementsOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.2,
-        0.4,
-        curve: Curves.linear,
-      ),
-    ));
 
-    requirementsTitleOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.4,
-          0.5,
-          curve: Curves.linear,
-        ),
-      ),
+    requirementsOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.2,
+      finish: 0.4,
     );
-    requirementsTitleOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.4,
-        0.5,
-        curve: Curves.linear,
-      ),
-    ));
 
-    requirementsOptionFaceOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.5,
-          0.6,
-          curve: Curves.linear,
-        ),
-      ),
+    requirementsOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.2,
+      finish: 0.4,
     );
-    requirementsOptionFaceOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.5,
-        0.6,
-        curve: Curves.linear,
-      ),
-    ));
 
-    requirementsOptionFakeOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.6,
-          0.7,
-          curve: Curves.linear,
-        ),
-      ),
+    requirementsTitleOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.4,
+      finish: 0.5,
     );
-    requirementsOptionFakeOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.6,
-        0.7,
-        curve: Curves.linear,
-      ),
-    ));
 
-    requirementsOptionYourselfOffsetAnimation = Tween<Offset>(begin: Offset(0.2, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: Interval(
-          0.7,
-          0.8,
-          curve: Curves.linear,
-        ),
-      ),
+    requirementsTitleOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.4,
+      finish: 0.5,
     );
-    requirementsOptionYourselfOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: controller,
-      curve: Interval(
-        0.7,
-        0.8,
-        curve: Curves.linear,
-      ),
-    ));
+
+    requirementsOptionFaceOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.5,
+      finish: 0.6,
+    );
+
+    requirementsOptionFaceOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.5,
+      finish: 0.6,
+    );
+
+    requirementsOptionFakeOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.6,
+      finish: 0.7,
+    );
+
+    requirementsOptionFakeOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.6,
+      finish: 0.7,
+    );
+
+    requirementsOptionYourselfOffsetAnimation = createAnimation(
+      controller,
+      begin: Offset(0.2, 0),
+      end: Offset.zero,
+      start: 0.7,
+      finish: 0.8,
+    );
+    requirementsOptionYourselfOpacityAnimation = createAnimation(
+      controller,
+      begin: 0.0,
+      end: 1.0,
+      start: 0.7,
+      finish: 0.8,
+    );
 
     controller.forward();
 
     super.initState();
+  }
+
+  Animation<T> createAnimation<T>(
+    AnimationController controller, {
+    required T begin,
+    required T end,
+    required double start,
+    required double finish,
+    Curve curve = Curves.easeInOut,
+  }) {
+    return Tween<T>(begin: begin, end: end).animate(
+      CurvedAnimation(parent: controller, curve: Interval(start, finish, curve: curve)),
+    );
   }
 
   @override

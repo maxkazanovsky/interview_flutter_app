@@ -300,6 +300,16 @@ class AppLocalizations {
     );
   }
 
+  /// `Gender`
+  String get gender {
+    return Intl.message(
+      'Gender',
+      name: 'gender',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `This field is required`
   String get validation_required {
     return Intl.message(
@@ -315,6 +325,66 @@ class AppLocalizations {
     return Intl.message(
       'Please enter a valid date',
       name: 'validation_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date cannot be in the future.`
+  String get validation_future_date {
+    return Intl.message(
+      'Date cannot be in the future.',
+      name: 'validation_future_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You must be at least {minAge} years old.`
+  String validation_minimum_age(Object minAge) {
+    return Intl.message(
+      'You must be at least $minAge years old.',
+      name: 'validation_minimum_age',
+      desc: '',
+      args: [minAge],
+    );
+  }
+
+  /// `Age must not exceed {maxAge} years.`
+  String validation_maximum_age(Object maxAge) {
+    return Intl.message(
+      'Age must not exceed $maxAge years.',
+      name: 'validation_maximum_age',
+      desc: '',
+      args: [maxAge],
+    );
+  }
+
+  /// `Your nickname is too short, please enter at least 5 symbols.`
+  String get validation_nickname_min_length {
+    return Intl.message(
+      'Your nickname is too short, please enter at least 5 symbols.',
+      name: 'validation_nickname_min_length',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your nickname is too long, maximum is 10 symbols.`
+  String get validation_nickname_max_length {
+    return Intl.message(
+      'Your nickname is too long, maximum is 10 symbols.',
+      name: 'validation_nickname_max_length',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid characters in username.`
+  String get validation_invalid_username {
+    return Intl.message(
+      'Invalid characters in username.',
+      name: 'validation_invalid_username',
       desc: '',
       args: [],
     );
@@ -345,6 +415,26 @@ class AppLocalizations {
     return Intl.message(
       'No',
       name: 'unlock_app_title_negative',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Camera error`
+  String get camera_error {
+    return Intl.message(
+      'Camera error',
+      name: 'camera_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Oops! Something went wrong!`
+  String get error_user_data {
+    return Intl.message(
+      'Oops! Something went wrong!',
+      name: 'error_user_data',
       desc: '',
       args: [],
     );

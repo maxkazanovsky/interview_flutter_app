@@ -16,14 +16,13 @@ part 'settings_state.dart';
 class SettingsCubit extends Cubit<SettingsState> {
   final AppSettingsRepository _appSettingsRepository;
   final UserDataRepository _userDataRepository;
-  SettingsCubit(this._appSettingsRepository, this._userDataRepository) : super(SettingsState.loading()) {
-    init();
-  }
+  SettingsCubit(this._appSettingsRepository, this._userDataRepository) : super(SettingsState.loading());
 
   void init() async {
     final userData = await _userDataRepository.getUserData();
     if (userData == null) {
-      throw Exception('User data not found');
+      emit(SettingsState.error());
+      return;
     }
 
     final isAppUnlocked = await _appSettingsRepository.isAppUnlocked();

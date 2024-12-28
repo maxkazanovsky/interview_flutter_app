@@ -1,11 +1,5 @@
 import 'dart:io';
 
-import 'package:test_birthday_app/core/routing/routes.dart';
-import 'package:test_birthday_app/core/utils/build_context_extension.dart';
-import 'package:test_birthday_app/generated/colors.gen.dart';
-import 'package:test_birthday_app/presentation/features/onboarding/cubit/onboarding_cubit.dart';
-import 'package:test_birthday_app/presentation/widgets/blurred_container.dart';
-import 'package:test_birthday_app/presentation/widgets/blurred_input.dart';
 import 'package:camera/camera.dart' as camera;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +7,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:test_birthday_app/core/routing/routes.dart';
+import 'package:test_birthday_app/core/utils/build_context_extension.dart';
+import 'package:test_birthday_app/generated/colors.gen.dart';
+import 'package:test_birthday_app/presentation/features/onboarding/cubit/onboarding_cubit.dart';
+import 'package:test_birthday_app/presentation/widgets/blurred_container.dart';
+import 'package:test_birthday_app/presentation/widgets/blurred_input.dart';
+import 'package:test_birthday_app/presentation/widgets/error_container.dart';
 
 part 'parts/birthday_page.dart';
 part 'parts/camera_page.dart';
@@ -35,6 +36,9 @@ class _OnboardingState extends State<Onboarding> {
   void initState() {
     super.initState();
     _controller = ScrollController(initialScrollOffset: 0);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<OnboardingCubit>().init();
+    });
   }
 
   @override
@@ -80,42 +84,40 @@ class _OnboardingState extends State<Onboarding> {
               ),
             ),
             Positioned.fill(
-              child: SafeArea(
-                child: BlocConsumer<OnboardingCubit, OnboardingState>(
-                  listener: (BuildContext context, OnboardingState state) {
-                    state.maybeMap(
-                        birthday: (_) =>
-                            _controller.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.linear),
-                        nickname: (_) {
-                          // I do not have enough time to make it more dynamic
-                          final onePart = _controller.position.maxScrollExtent / 4;
-                          _controller.animateTo(onePart,
-                              duration: const Duration(milliseconds: 300), curve: Curves.linear);
-                        },
-                        gender: (_) {
-                          // I do not have enough time to make it more dynamic
-                          final onePart = (_controller.position.maxScrollExtent / 4) * 2;
-                          _controller.animateTo(onePart,
-                              duration: const Duration(milliseconds: 300), curve: Curves.linear);
-                        },
-                        photo: (_) {
-                          _controller.animateTo(_controller.position.maxScrollExtent,
-                              duration: const Duration(milliseconds: 300), curve: Curves.linear);
-                        },
-                        orElse: () {
-                          _controller.jumpTo(_controller.position.maxScrollExtent);
-                        });
-                  },
-                  builder: (context, state) {
-                    return Stack(
-                      fit: StackFit.expand,
-                      children: [
-                        Positioned.fill(child: _getPageForState(state)),
-                        Positioned.fill(child: _buildHeader(state)),
-                      ],
-                    );
-                  },
-                ),
+              child: BlocConsumer<OnboardingCubit, OnboardingState>(
+                listener: (BuildContext context, OnboardingState state) {
+                  state.maybeMap(
+                      birthday: (_) =>
+                          _controller.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.linear),
+                      nickname: (_) {
+                        // I do not have enough time to make it more dynamic
+                        final onePart = _controller.position.maxScrollExtent / 4;
+                        _controller.animateTo(onePart,
+                            duration: const Duration(milliseconds: 300), curve: Curves.linear);
+                      },
+                      gender: (_) {
+                        // I do not have enough time to make it more dynamic
+                        final onePart = (_controller.position.maxScrollExtent / 4) * 2;
+                        _controller.animateTo(onePart,
+                            duration: const Duration(milliseconds: 300), curve: Curves.linear);
+                      },
+                      photo: (_) {
+                        _controller.animateTo(_controller.position.maxScrollExtent,
+                            duration: const Duration(milliseconds: 300), curve: Curves.linear);
+                      },
+                      orElse: () {
+                        _controller.jumpTo(_controller.position.maxScrollExtent);
+                      });
+                },
+                builder: (context, state) {
+                  return Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Positioned.fill(child: _getPageForState(state)),
+                      Positioned.fill(child: _buildHeader(state)),
+                    ],
+                  );
+                },
               ),
             ),
           ],
@@ -130,10 +132,10 @@ class _OnboardingState extends State<Onboarding> {
         Expanded(
           child: state.map(
             loading: (_) => Center(child: CircularProgressIndicator()),
-            birthday: (_) => BirthdayPage(key: ValueKey("birthday_page")),
-            nickname: (_) => NicknamePage(key: ValueKey("nickname_page")),
-            gender: (_) => GendersPage(key: ValueKey("gender_page")),
-            photo: (_) => PhotoPage(key: ValueKey("photo_page")),
+            birthday: (_) => SafeArea(child: BirthdayPage(key: ValueKey("birthday_page"))),
+            nickname: (_) => SafeArea(child: NicknamePage(key: ValueKey("nickname_page"))),
+            gender: (_) => SafeArea(child: GendersPage(key: ValueKey("gender_page"))),
+            photo: (_) => SafeArea(child: PhotoPage(key: ValueKey("photo_page"))),
             camera: (_) => CameraPage(key: ValueKey("camera_page")),
             cameraPreview: (_) => CameraPreviewPage(key: ValueKey("camera_preview_page")),
           ),
@@ -177,7 +179,8 @@ class _OnboardingState extends State<Onboarding> {
                           .push(AppRoutes.settings.path)
                           .then((value) => context.read<OnboardingCubit>().setAppUnlocked(value as bool)),
                       icon: context.icons.settings.image(color: AppColors.iconColor)),
-                  camera: (_) => context.read<OnboardingCubit>().isFlipCameraAvailable
+                  camera: (_) => context.read<OnboardingCubit>().isFlipCameraAvailable &&
+                          state.maybeMap(orElse: () => false, camera: (state) => !state.hasError)
                       ? IconButton(
                           onPressed: context.read<OnboardingCubit>().flipCamera,
                           icon: context.icons.refresh.image(color: AppColors.iconColor))

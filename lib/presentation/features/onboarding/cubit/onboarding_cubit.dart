@@ -1,14 +1,14 @@
-import 'package:test_birthday_app/core/config/setup_configuration.dart';
-import 'package:test_birthday_app/core/utils/build_context_extension.dart';
-import 'package:test_birthday_app/domain/entities/user.dart';
-import 'package:test_birthday_app/domain/repositories/app_settings_repository.dart';
-import 'package:test_birthday_app/domain/repositories/user_data_repository.dart';
 import 'package:camera/camera.dart' as camera;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
+import 'package:test_birthday_app/core/config/setup_configuration.dart';
+import 'package:test_birthday_app/core/utils/build_context_extension.dart';
+import 'package:test_birthday_app/domain/entities/user.dart';
+import 'package:test_birthday_app/domain/repositories/app_settings_repository.dart';
+import 'package:test_birthday_app/domain/repositories/user_data_repository.dart';
 
 part 'onboarding_cubit.freezed.dart';
 part 'onboarding_state.dart';
@@ -18,7 +18,6 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   final UserOnboardingData _data = UserOnboardingData();
   List<camera.CameraDescription> _cameras = [];
   camera.CameraController? _cameraController;
-  int _currentCameraIndex = 0;
 
   final UserDataRepository _userDataRepository;
   final AppSettingsRepository _appSettingsRepository;
@@ -27,9 +26,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   late bool isFirstLaunch;
 
   OnboardingCubit(this._userDataRepository, this._appSettingsRepository, this._config)
-      : super(const OnboardingState.loading()) {
-    init();
-  }
+      : super(const OnboardingState.loading());
 
   void init() async {
     isFirstLaunch = await _appSettingsRepository.isFirstLaunch();
@@ -42,61 +39,91 @@ class OnboardingCubit extends Cubit<OnboardingState> {
 
   bool get isFlipCameraAvailable => _cameras.length > 1;
 
-  Future<void> initCamera() async {
+  Future<void> initCamera({bool isFrontCamera = true, camera.CameraController? controller}) async {
     try {
+      emit(OnboardingState.camera(
+          cameraController: controller, isPreviousButtonAvailable: isFirstLaunch, isCameraLoading: true));
       _cameras = await camera.availableCameras();
-      final cameraController = camera.CameraController(
-        _cameras[_currentCameraIndex],
-        camera.ResolutionPreset.low,
-        enableAudio: false,
-      );
+      camera.CameraController cameraController;
+      if (isFrontCamera) {
+        cameraController = camera.CameraController(
+          _cameras.firstWhere((e) => e.lensDirection == camera.CameraLensDirection.front),
+          camera.ResolutionPreset.ultraHigh,
+          enableAudio: false,
+        );
+      } else {
+        cameraController = camera.CameraController(
+          _cameras.firstWhere((e) => e.lensDirection == camera.CameraLensDirection.back),
+          camera.ResolutionPreset.ultraHigh,
+          enableAudio: false,
+        );
+      }
+
+      await _cameraController?.dispose();
       _cameraController = cameraController;
-      cameraController.initialize().then((_) {
-        emit(OnboardingState.camera(cameraController: cameraController, isPreviousButtonAvailable: isFirstLaunch));
-      }).catchError((e) {
+
+      await cameraController.initialize().catchError((e) {
         debugPrint("Error initializing camera: $e");
+        state.mapOrNull(camera: (state) => emit(state.copyWith(hasError: true)));
       });
+
+      emit(
+        OnboardingState.camera(
+          cameraController: cameraController,
+          isPreviousButtonAvailable: isFirstLaunch,
+          isCameraLoading: false,
+          isFrontCameraActive: isFrontCamera,
+        ),
+      );
     } catch (e) {
       debugPrint("Error initializing cameras: $e");
+      state.mapOrNull(camera: (state) => emit(state.copyWith(hasError: true)));
     }
   }
 
-  void _startCamera(int cameraIndex) {
-    final cameraController = camera.CameraController(
-      _cameras[cameraIndex],
-      camera.ResolutionPreset.low,
-      enableAudio: false,
-    );
-    cameraController.initialize().then((_) {
-      emit(OnboardingState.camera(cameraController: cameraController, isPreviousButtonAvailable: isFirstLaunch));
-    }).catchError((e) {
-      debugPrint("Error initializing camera: $e");
+  void flipCamera() {
+    state.mapOrNull(camera: (state) async {
+      if (isFlipCameraAvailable) {
+        await initCamera(isFrontCamera: !state.isFrontCameraActive, controller: state.cameraController);
+      }
     });
-    _cameraController?.dispose();
-    _cameraController = cameraController;
-  }
-
-  flipCamera() {
-    if (_cameras.length > 1) {
-      _currentCameraIndex = (_currentCameraIndex + 1) % _cameras.length;
-      _startCamera(_currentCameraIndex);
-    } else {
-      debugPrint("Only one camera available");
-    }
   }
 
   String? _validateBirthday(BuildContext context) {
     final isEntered = _data.birthday.day != null && _data.birthday.month != null && _data.birthday.year != null;
+
     if (!isEntered) {
       return context.l10n.validation_required;
     }
+
     try {
       final year = _data.birthday.year!;
       final month = _data.birthday.month!;
       final day = _data.birthday.day!;
-      final date = DateTime(year, month, day);
 
-      return date.year == year && date.month == month && date.day == day ? null : context.l10n.validation_date;
+      final date = DateTime(year, month, day);
+      if (date.year != year || date.month != month || date.day != day) {
+        return context.l10n.validation_date;
+      }
+
+      final now = DateTime.now();
+      if (date.isAfter(now)) {
+        return context.l10n.validation_future_date;
+      }
+
+      const minAge = 18;
+      const maxAge = 120;
+      final age = now.year - date.year - (now.month < month || (now.month == month && now.day < day) ? 1 : 0);
+
+      if (age < minAge) {
+        return context.l10n.validation_minimum_age(minAge);
+      }
+
+      if (age > maxAge) {
+        return context.l10n.validation_maximum_age(maxAge);
+      }
+
+      return null;
     } catch (e) {
       return context.l10n.validation_date;
     }
@@ -106,6 +133,20 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     final isEntered = _data.nickname.nickname != null && _data.nickname.nickname!.trim().isNotEmpty;
     if (!isEntered) {
       return context.l10n.validation_required;
+    }
+    final nickname = _data.nickname.nickname!.trim();
+    final tooShort = nickname.length < 5;
+    if (tooShort) {
+      return context.l10n.validation_nickname_min_length;
+    }
+    final tooLong = nickname.length > 10;
+    if (tooLong) {
+      return context.l10n.validation_nickname_max_length;
+    }
+
+    final validUsernameRegex = RegExp(r'^[a-zA-Z0-9_.]+$');
+    if (!validUsernameRegex.hasMatch(nickname)) {
+      return context.l10n.validation_invalid_username;
     }
     return null;
   }
@@ -139,19 +180,21 @@ class OnboardingCubit extends Cubit<OnboardingState> {
       photo: (_) async {
         await initCamera();
       },
-      camera: (_) async {
-        if (_cameraController == null || !_cameraController!.value.isInitialized) {
+      camera: (state) async {
+        if (state.cameraController == null || !state.cameraController!.value.isInitialized) {
           debugPrint("Camera controller is not initialized.");
+          emit(state.copyWith(hasError: true));
           return;
         }
 
-        if (_cameraController!.value.isTakingPicture) {
+        if (state.cameraController!.value.isTakingPicture) {
           debugPrint("Camera is already taking a picture.");
+          emit(state.copyWith(hasError: true));
           return;
         }
 
         try {
-          final image = await _cameraController!.takePicture();
+          final image = await state.cameraController!.takePicture();
 
           debugPrint("Picture taken: ${image.path}");
           isFirstLaunch = false;
@@ -160,6 +203,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
           emit(OnboardingState.cameraPreview(image: image, showAd: !isAppLocked, adUnitId: _config.adUnitId));
         } catch (e) {
           debugPrint("Error taking picture: $e");
+          emit(state.copyWith(hasError: true));
         }
       },
     );
